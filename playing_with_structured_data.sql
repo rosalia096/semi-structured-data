@@ -111,29 +111,20 @@ data_base.schema.tiempo_anterior_posterior(eventos,'En proceso') AS dias_entre_a
 FROM data_base.schema.orden_dato_small 
 WHERE dias_entre_anterior_posterior IS NOT NULL 
 
+--------------------- Ejemplo de uso:
+----- Resultados para responder a la necesidad : ¿Cual es la media de dias entre los eventos posteriores y anteriores al estatus 'En proceso'?
 
-
-
-
------
-
-
-CREATE OR REPLACE TABLE data_base.schema.resultados_imsharing AS 
+CREATE OR REPLACE TABLE data_base.schema.resultados_dato AS 
 SELECT
 o.order_id,
 s.estatus_esp AS estatus ,
 p.PRODUCT_CATEGORY_NAME AS categoria_producto,
 data_base.schema.tiempo_anterior_posterior(eventos,'En proceso') AS dias_entre_anterior_posterior
-
 FROM data_base.schema.orden_dato_small AS o
-
 LEFT JOIN data_base.schema.orden_producto_dato AS op
 ON o.order_id= op.order_id
-
 LEFT JOIN data_base.schema.productos_dato AS p
 ON op.product_id= p.product_id
-
 LEFT JOIN data_base.schema.ordenes_status_dato AS s 
 ON o.order_id= s.order_id
-
 WHERE dias_entre_anterior_posterior IS NOT NULL 
